@@ -11,7 +11,7 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://grantmcgann.surge.sh/api/messages", {
+      const response = await fetch("https://grant-mcgann-13d3d1c0d8e2.herokuapp.com/api/messages", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
