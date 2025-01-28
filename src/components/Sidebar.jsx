@@ -1,7 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Sidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 480);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 480);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
@@ -9,15 +16,58 @@ export default function Sidebar() {
 
   return (
     <>
+      {/* Toggle Button (always visible on mobile) */}
+      <button
+        onClick={toggleSidebar}
+        style={{
+          position: "fixed",
+          left: isMobile ? "10px" : "20px",
+          bottom: isMobile ? "10px" : "auto",
+          top: isMobile ? "auto" : "calc(50% + 95px)",
+          zIndex: "11",
+          backgroundColor: "black",
+          color: "white",
+          border: "2px solid white",
+          borderRadius: "50%",
+          width: "50px",
+          height: "50px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          cursor: "pointer",
+          transition: "all 0.3s ease",
+        }}
+        onMouseEnter={(e) => {
+          e.target.style.transform = "scale(1.2)";
+          e.target.style.boxShadow = "0px 4px 15px rgba(0, 0, 0, 0.5)";
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.transform = "scale(1)";
+          e.target.style.boxShadow = "none";
+        }}
+      >
+        {isSidebarOpen ? (
+          <i className="fas fa-chevron-left"></i>
+        ) : (
+          <i className="fas fa-chevron-right"></i>
+        )}
+      </button>
+
       {/* Sidebar */}
       {isSidebarOpen && (
         <div
           style={{
             position: "fixed",
-            top: "50%",
-            left: "20px",
-            transform: "translateY(-50%)",
+            left: isMobile ? "0" : "20px",
+            bottom: isMobile ? "10px" : "auto",
+            top: isMobile ? "auto" : "50%",
+            transform: isMobile ? "none" : "translateY(-50%)",
             zIndex: "10",
+            display: "flex",
+            flexDirection: isMobile ? "row" : "column",
+            width: isMobile ? "100%" : "auto",
+            justifyContent: isMobile ? "center" : "unset",
+            backgroundColor: "transparent",
           }}
         >
           <ul
@@ -25,10 +75,13 @@ export default function Sidebar() {
               listStyle: "none",
               margin: "0",
               padding: "0",
+              display: "flex",
+              flexDirection: isMobile ? "row" : "column",
+              alignItems: "center",
             }}
           >
             {/* LinkedIn */}
-            <li style={{ marginBottom: "15px" }}>
+            <li style={{ margin: isMobile ? "0 10px" : "0 0 15px 0" }}>
               <a
                 href="https://www.linkedin.com/in/grant-mcgann-876573317/"
                 target="_blank"
@@ -59,7 +112,7 @@ export default function Sidebar() {
             </li>
 
             {/* GitHub */}
-            <li style={{ marginBottom: "15px" }}>
+            <li style={{ margin: isMobile ? "0 10px" : "0 0 15px 0" }}>
               <a
                 href="https://github.com/GrantMcGann23"
                 target="_blank"
@@ -90,7 +143,7 @@ export default function Sidebar() {
             </li>
 
             {/* Email */}
-            <li style={{ marginBottom: "15px" }}>
+            <li style={{ margin: isMobile ? "0 10px" : "0 0 15px 0" }}>
               <a
                 href="mailto:mcganngrant@gmail.com"
                 style={{
@@ -120,42 +173,6 @@ export default function Sidebar() {
           </ul>
         </div>
       )}
-
-      {/* Hide/Show Button */}
-      <button
-        onClick={toggleSidebar}
-        style={{
-          position: "fixed",
-          left: "20px", // Matches left alignment of icons
-          top: "calc(50% + 95px)", // Adjusted to align perfectly below the last icon
-          zIndex: "11",
-          backgroundColor: "black",
-          color: "white",
-          border: "2px solid white",
-          borderRadius: "50%",
-          width: "50px", // Same size as other icons
-          height: "50px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          cursor: "pointer",
-          transition: "all 0.3s ease",
-        }}
-        onMouseEnter={(e) => {
-          e.target.style.transform = "scale(1.2)";
-          e.target.style.boxShadow = "0px 4px 15px rgba(0, 0, 0, 0.5)";
-        }}
-        onMouseLeave={(e) => {
-          e.target.style.transform = "scale(1)";
-          e.target.style.boxShadow = "none";
-        }}
-      >
-        {isSidebarOpen ? (
-          <i className="fas fa-chevron-left"></i>
-        ) : (
-          <i className="fas fa-chevron-right"></i>
-        )}
-      </button>
     </>
   );
 }
