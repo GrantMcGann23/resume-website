@@ -49,7 +49,7 @@ export default function Projects() {
           </div>
   
           {/* Project 2: Ray Tracing Project */}
-          <div>
+          <div style={{ marginBottom: "3rem" }}>
             <h3 style={{ fontSize: "1.8rem", marginBottom: "1rem" }}>Ray Tracing Project</h3>
             <p style={{ fontSize: "1.2rem", lineHeight: "1.6", marginBottom: "1rem" }}>
               Developed a ray tracing application in C++ that renders realistic 3D images
@@ -82,8 +82,53 @@ export default function Projects() {
               />
             </div>
           </div>
+
+          {/* Project: Algo Arcade */}
+          <div style={{ marginBottom: "3rem" }}>
+            <h3 style={{ fontSize: "1.8rem", marginBottom: "1rem" }}>
+              Algorithm Arcade
+            </h3>
+            <p style={{ fontSize: "1.2rem", lineHeight: "1.6", marginBottom: "1rem" }}>
+              Interactive algorithm visualization platform built with React, Three.js, and TypeScript.
+              Features real-time sorting comparisons, binary tree exploration, and weighted graph pathfinding.
+              <br />
+              <a
+                href="https://github.com/GrantMcGann23/algo-arcade"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: "#FFD700",
+                  textDecoration: "none",
+                  marginRight: "1rem"
+                }}
+              >
+                View GitHub Repository
+              </a>
+            </p>
+            <div>
+              <a
+                href="https://algo-arcade-6k0ltjz23-grantmcgann23s-projects.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="/assets/algo-arcade-preview.png"
+                  alt="Algo Arcade Preview"
+                  style={{
+                    width: "100%",
+                    maxWidth: "800px",
+                    border: "2px solid #FFD700",
+                    borderRadius: "8px",
+                    transition: "transform 0.2s ease-in-out",
+                    cursor: "pointer",
+                  }}
+                  onMouseOver={(e) => e.currentTarget.style.transform = "scale(1.02)"}
+                  onMouseOut={(e) => e.currentTarget.style.transform = "scale(1)"}
+                />
+              </a>
+            </div>
+          </div>
         </div>
       </section>
     );
   }
-  
